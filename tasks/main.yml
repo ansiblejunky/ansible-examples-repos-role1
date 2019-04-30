@@ -2,10 +2,10 @@
   import_tasks: redhat.yml
   when: ansible_facts['os_family']|lower == 'redhat'
 
-- name: name: Perform tasks for Debian platform
+- name: Perform tasks for Debian platform
   import_tasks: debian.yml
   when: ansible_facts['os_family']|lower == 'debian'
 
-- name: name: Perform tasks for Windows platform
+- name: Perform tasks for Windows platform
   import_tasks: windows.yml
   when: ansible_facts['os_family']|lower == 'windows'
