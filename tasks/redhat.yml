@@ -1,0 +1,9 @@
+- name: Perform all Red Hat platform tasks
+  debug:
+    msg: Perform all Red Hat platform tasks
+
+- name: Ensure Apache is installed
+  yum:
+    name: "httpd"
+    state: present
+

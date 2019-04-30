@@ -1,0 +1,9 @@
+- name: Perform all Debian platform tasks
+  debug:
+    msg: Perform all Debian platform tasks
+
+- name: Ensure Apache is installed
+  apt:
+    name: "apache2"
+    state: present
+

@@ -1,0 +1,4 @@
+- name: Perform all Windows platform tasks
+  debug:
+    msg: Perform all Windows platform tasks
+
