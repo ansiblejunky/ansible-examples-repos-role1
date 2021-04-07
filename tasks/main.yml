@@ -1,11 +1,38 @@
-- name: Perform tasks for Red Hat platform
-  import_tasks: redhat.yml
-  when: ansible_facts['os_family']|lower == 'redhat'
+---
+- name: Check mandatory variables are defined
+  assert:
+    that:
+      - param_app_name is defined
+      - param_app_user is defined
+      - param_app_user_group is defined
 
-- name: Perform tasks for Debian platform
-  import_tasks: debian.yml
-  when: ansible_facts['os_family']|lower == 'debian'
+# Consider using with_first_found instead:
+# - name: gather os specific variables
+#   include_vars: "{{ item }}"
+#   with_first_found:
+#     - "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
+#     - "{{ ansible_distribution }}.yml"
+#   tags: vars
 
-- name: Perform tasks for Windows platform
-  import_tasks: windows.yml
-  when: ansible_facts['os_family']|lower == 'windows'
+- name: Include OS-specific variables
+  include_vars: "{{ ansible_os_family | lower }}.yml"
+  tags: vars
+
+- name: Perform OS-specific tasks
+  import_tasks: "{{ ansible_os_family | lower }}.yml"
+
+# lint test - setting var with invalid naming
+- set_fact:
+    MyVar: this
+
+# lint test - setting registered variable with invalid naming
+- set_fact:
+    myvar: this
+  register: regVar
+
+# lint test - shell rule
+- shell: echo this # noqa 305
+
+# lint test - noqa operation
+- shell: echo this # noqa 305
+

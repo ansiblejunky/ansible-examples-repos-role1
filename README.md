@@ -1,39 +1,39 @@
-role1
-=========
+# Ansible Role Repository
 
-Example Ansible Role used for demo purposes to highlight the following points when building an Ansible Role:
+Example Ansible Role used for demo purposes to highlight best practices.
 
-- correct usage of supported folders
-- correct variable naming
-- correct variable placement (using `defaults/main.yml` versus `vars/main.yml`)
-
-
-Requirements
-------------
+## Requirements
 
 None
 
-Role Variables
---------------
+## Role Variables
 
-Mandatory variables:
+It is important to understand how variables should be defined within an Ansible Role and how best to organize them.
 
-
-Defaulted variables (can be overridden):
+### Proper Naming
 
 
-Other notable variables:
+### Handling Required Variables
 
+### Handling Public Variables
 
-Dependencies
-------------
+Create public variables in the `defaults/main.yml` area.
 
-A list of other dependent roles should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+### Handling Private Variables
 
-Example Playbook
-----------------
+Create private variables in the `vars/main.yml` area.
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+### Handling OS-specific Variables
+
+Take a look at the following example Ansible Role that installs Java on multiple OS targets: [ansible-role-java](https://github.com/geerlingguy/ansible-role-java). Notice that it loads the OS-specific variables as one of the first steps in the `tasks/main.yml` area.
+
+## Dependencies
+
+Role dependencies are typically defined in the `meta/main.yml` file under the `dependencies:` section.
+
+## Example Playbook
+
+Include an example of how to use your role (for instance, with variables passed in as parameters):
 
 ```yaml
     - hosts: servers
@@ -41,12 +41,28 @@ Including an example of how to use your role (for instance, with variables passe
          - { role: username.rolename, x: 42 }
 ```
 
-License
--------
+## Embedding Modules and Plugins
+
+Roles are also a great place to put your custom modules or plugins. This allows other playbooks to use your modules/plugins. For modules, simply place your module script inside the `library` folder. For filter plugins, simply place the plugin script inside the `filter_plugins` folder. The same applies to the other plugin folders. These folders reside at the root of this repo.
+
+When anyone wants to use your custom module/plugin, they simply write a playbook to import your role before they use it. For example:
+
+```yaml
+- hosts: webservers
+  roles:
+    - my_custom_modules
+    - some_other_role_using_my_custom_modules
+    - yet_another_role_using_my_custom_modules
+```
+
+It is important to note, you must **import** the role and not **include** the role. In the example above all roles are implicitly imported.
+
+For more information please read [this](https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html#embedding-modules-and-plugins-in-roles).
+
+## License
 
 BSD
 
-Author Information
-------------------
+## Author
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+John Wadleigh

@@ -1,3 +1,4 @@
 ---
 # handlers
+- debug: var=inventory_hostname
 

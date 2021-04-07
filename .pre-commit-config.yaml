@@ -1,0 +1,13 @@
+---
+
+repos:
+
+  # Instructions on using pre-commit with ansible-lint
+  # https://ansible-lint.readthedocs.io/en/latest/configuring.html#pre-commit-setup
+  # Use `pre-commit autoupdate` command to update the rev automatically
+  
+  - repo: https://github.com/ansible-community/ansible-lint.git
+    rev: v5.0.7
+    hooks:
+      - id: ansible-lint
+        files: \.(yaml|yml)$

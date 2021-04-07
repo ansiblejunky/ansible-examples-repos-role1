@@ -1,0 +1,11 @@
+---
+# TIP: Use YAML multiline block scalars to handle long strings (e.g. install command)
+# https://yaml-multiline.info/
+
+role1_install_command: >
+  this line will be appended
+  to this line
+  and this line
+  to complete the entire
+  command and be readable
+  instead of one super-long line

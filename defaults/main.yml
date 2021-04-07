@@ -1,3 +1,6 @@
 ---
 # defaults
+myvar:
+     this: that
+     those: them
 
